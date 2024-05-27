@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql/mysql-server:latest
+    container_name: mysql_sisca
+    environment:
+      MYSQL_ROOT_PASSWORD: root   # Senha do usuário root do MySQL
+      MYSQL_DATABASE: sisca              # Nome do banco de dados a ser criado
+      MYSQL_USER: root              # Nome de um usuário adicional do MySQL
+      MYSQL_PASSWORD: root  # Senha do usuário adicional do MySQL
+    ports:
+      - "3306:3306"  # Mapeamento de portas para acessar o MySQL
+    volumes:
+      - mysql_data:/var/lib/mysql  # Persistência de dadosd
+volumes:
+  mysql_data:
+    driver: local
