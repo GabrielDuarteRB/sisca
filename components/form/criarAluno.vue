@@ -9,10 +9,10 @@
             <span v-if="!cpfValid">Digite um cpf valido</span>
 
             <div>
-                <select name="" id="">
-                    <option>Selecione um curso</option>
-                </select>
+                <label>Ano de matricula:</label> 
+                <input v-model="ano_matricula" >
             </div>
+            <span v-if="!ano_matriculaValid">Digite um ano de matricula valido</span>
 
             <button type="submit" >Enviar</button>
         </form>
@@ -28,8 +28,8 @@ export default {
         return {
             cpf: '',
             cpfValid: true,
-            curso: '',
-            cursoValid: true
+            ano_matricula: '',
+            ano_matriculaValid: true
         }
     },
     props: {
@@ -38,26 +38,25 @@ export default {
     methods: {
         enviarFormulario() {
             if(!this.validForm()) return
-
-            console.log('enviado')
             
             this.$emit('formularioEnviado', {
                 cpf :this.cpf,
-                curso: this.curso
+                ano_matricula: this.ano_matricula
             })
-            this.cleanFields();
+
+            // this.cleanFields();
         },
         validForm() {
-            this.cursoValid = Validation.isRequired(this.curso)
+            this.ano_matriculaValid = Validation.isRequired(this.ano_matricula)
             this.cpfValid = Validation.isCPFValid(this.cpf)
 
-            return this.cpfValid && this.cursoValid
+            return this.cpfValid && this.ano_matriculaValid
         },
         cleanFields() {
-            this.curso = ''
-            this.cursoValid = true
             this.cpf = ''
             this.cpfValid = true
+            this.ano_matricula =  ''
+            this.ano_matriculaValid =  true
         }
     }
 }
@@ -87,5 +86,9 @@ export default {
 
     select {
         width: 250px;
+    }
+
+    .encontrado {
+        color: green
     }
 </style>
