@@ -15,7 +15,7 @@ class Validation {
     }
 
     isCPFValid(cpf) {
-        cpf = cpf.replace(/[^\d]+/g,''); // Remove caracteres não numéricos
+        cpf = cpf.replace(/[^\d]+/g,'');
         if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) {
             return false;
         }
@@ -66,10 +66,21 @@ class Validation {
         
         const [dia, mes, ano] = data.split('/').map(Number);
 
-        // Verifica os dias de cada mês
         const diasPorMes = [31, (ano % 4 === 0 && (ano % 100 !== 0 || ano % 400 === 0)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         
         return dia <= diasPorMes[mes - 1];
+    }
+
+    isMoreThan(number, numberMin) {
+        return number < numberMin
+    }
+
+    isBetweenThan(number, numberMin, numberMax) {
+        return number > numberMin & number < numberMax
+    }
+
+    isStringLength(value, number) {
+        return value.length == number
     }
 
 }

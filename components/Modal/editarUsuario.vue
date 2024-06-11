@@ -45,7 +45,7 @@
             async atualizarUsuario(e) {
                 const [dia, mes, ano] = e.data_nascimento.split('/')
                 const dataObj = `${ano}-${mes}-${dia}T00:00:00`;
-
+                
                 e.data_nascimento = dataObj
                 e.cpf = formatted.limparCaracteres(e.cpf, ".()- ")
                 e.telefone = formatted.limparCaracteres(e.telefone, ".()- ")
