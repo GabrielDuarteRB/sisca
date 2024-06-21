@@ -1,17 +1,16 @@
 <template>
-    <section>
-        <NuxtLink to="/admin/"> <- Voltar para o painel principal</NuxtLink>
-
-        <br>
-
-        <span class="clique" @click="modalAberto = true">Cadastrar Nova Materia</span>
+    <ValidadoresTecnico>
+        <div class="header-container">
+            <NuxtLink to="/admin" class="back-link">← Voltar para o painel principal</NuxtLink>
+            <span  @click="modalAberto = true" class="add-student-link">Cadastrar Nova Materia</span>
+        </div>
 
         <ListaMateria :materias="materias" @pegarMaterias="listarMaterias" />
 
         <Modal @fecharModal="fecharModal" v-if="modalAberto">
             <FormCriarEEditarMateria @enviarFormulario="cadastrarMateria" :mensagem="mensagem" />
         </Modal>
-    </section>
+    </ValidadoresTecnico>
 </template>
 
 <script>
@@ -58,9 +57,27 @@ export default {
 
 <style scoped>
 
-.clique {
-    color: blue;
-    cursor: pointer;
+.header-container {
+    align-items: center;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 10px;
 }
 
+.back-link,
+.add-student-link {
+    color: #007bff;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.back-link:hover,
+.add-student-link:hover {
+    text-decoration: underline;
+}
 </style>

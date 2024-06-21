@@ -1,14 +1,20 @@
 <template>
-    <div>
-        <NuxtLink to="/aluno">Menu Principal</NuxtLink>
+    <ValidadoresAluno>
+        <NuxtLink class="menu" to="/aluno">
+            <img src="../../../assets/icons/voltar.png" alt="Icone de voltar">
+        </NuxtLink>
 
         <ListaAlunoTurmas 
             :turmas="turmas" 
+            class="listagem"
         />
-    </div>
+    </ValidadoresAluno>
 </template>
 
 <script>
+
+import TurmaAluno from '@/service/TurmaAluno.js'
+import LocalStorage from '@/utils/LocalStorage.js'
 
 export default {
     data() {
@@ -32,7 +38,46 @@ export default {
                 },
             ]
         }
+    },
+    async mounted() {
+        const id = LocalStorage.pegarIdUsuario()
+        if(!id) {
+            this.$router.replace({ path: '/' })
+        }
+
+        await this.pegarTurmasDoAluno(id)
+    },
+    methods: {
+        async pegarTurmasDoAluno(id) {
+            this.turmas = await TurmaAluno.pegarTurmasDoAluno(id)
+            console.log(this.turmas)
+        }
     }
 }
 
 </script>
+
+<style scoped>
+
+body {
+    background-color: rgb(224, 224, 224);
+    margin: 0;
+    padding: 0;
+}
+
+.menu {
+    left: 16px;
+    position: absolute;
+    top: 16px;
+}
+
+.menu img {
+    width: 32px;
+}
+
+.listagem {
+    margin-top: 64px;
+}
+
+
+</style>

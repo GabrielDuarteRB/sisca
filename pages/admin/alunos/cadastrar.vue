@@ -1,7 +1,9 @@
 <template>
-    <section>
+    <ValidadoresTecnico>
         
-        <NuxtLink to="/admin/alunos"> <- Voltar para o painel dos alunos</NuxtLink>
+        <NuxtLink class="menu" to="/admin/alunos">
+            <img src="../../../assets/icons/voltar.png" alt="Icone de voltar">
+        </NuxtLink>
 
         <h1>Cadastrar aluno</h1>
         
@@ -9,7 +11,7 @@
             :mensageToSend="alunoCriado"
             @formularioEnviado="criarAluno"
         />
-    </section>
+    </ValidadoresTecnico>
 </template>
 
 <script>
@@ -32,7 +34,6 @@ export default {
     methods: {
         criarAluno(e) {
 
-            console.log(e)
             e.cpf = Formatted.limparCaracteres(e.cpf, ".()- ")
             const alunoExiste = this.alunoAchado(e.cpf)
 
@@ -76,5 +77,11 @@ export default {
 
 </script>
 
+<style>
 
+h1 {
+    text-align: center;
+}
+
+</style>
 

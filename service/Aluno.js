@@ -23,20 +23,18 @@ class Aluno {
             return aluno
         } catch (e) {
             console.log(e)
-            return e
         }
     }
 
-    // async atualizarUsuario(data) {
-    //     try {
-    //         const usuario = await useHttp.put(`${this.baseURL}/atualizar`, data)
+    async pegarAlunoPorUsuario(id) {
+        try {
+            const aluno = await useHttp.get(`${this.baseURL}/usuario/${id}`)
 
-    //         return usuario
-    //     } catch (e) {
-    //         console.log(e)
-    //     }
-    // }
-
+            return aluno.data
+        } catch (e) {
+            console.log(e)
+        }
+    }
 }
 
 export default new Aluno()

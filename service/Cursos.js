@@ -37,15 +37,15 @@ class Cursos {
         }
     }
 
-    // async atualizarUsuario(data) {
-    //     try {
-    //         const usuario = await useHttp.put(`${this.baseURL}/atualizar`, data)
+    async atualizarCurso(data) {
+        try {
+            const curso = await useHttp.put(`${this.baseURL}/atualizar`, data)
 
-    //         return usuario
-    //     } catch (e) {
-    //         console.log(e)
-    //     }
-    // }
+            return curso
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
 }
 

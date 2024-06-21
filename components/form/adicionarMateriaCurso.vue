@@ -1,36 +1,38 @@
 <template>
-    <form @submit.prevent="enviarFormulario">
-        <h3 v-if="mensagem">{{mensagem}}</h3>
-        <select v-model="materiaSelecionada">
-          <option value="">Escolha uma materia</option>
-          <option 
-              v-for="materia in materias" 
-              :value="materia.id_materia"
-          >
-              {{ materia.nome }}
-          </option>
-        </select>
-        <span v-if="materiaSelecionadaValid">{{materiaSelecionadaValid}}</span>
+    <form class="modal-form" @submit.prevent="enviarFormulario">
+        <h3 v-if="mensagem" class="modal-title">{{ mensagem }}</h3>
+        
+        <div class="form-group">
+            <label for="materia">Escolha uma matéria:</label>
+            <select id="materia" v-model="materiaSelecionada">
+                <option value="">Escolha uma matéria</option>
+                <option v-for="materia in materias" :key="materia.id_materia" :value="materia.id_materia">
+                    {{ materia.nome }}
+                </option>
+            </select>
+            <span v-if="!materiaSelecionadaValid" class="error-message">Escolha uma matéria válida</span>
+        </div>
 
-        <label>Periodo da materia: </label>
-        <input v-model="periodo">
-        <span v-if="periodoValid">{{periodoValid}}</span>
+        <div class="form-group">
+            <label for="periodo">Período da matéria:</label>
+            <input id="periodo" v-model="periodo" type="number">
+            <span v-if="!periodoValid" class="error-message">Digite um período válido</span>
+        </div>
 
-        <button>Salvar</button>
+        <button type="submit" class="btn-submit">Salvar</button>
     </form>
 </template>
 
 <script>
-
 import Validation from '@/utils/Validation.js'
 
 export default {
     data() {
         return {
             materiaSelecionada: '',
-            materiaSelecionadaValid: '',
-            periodo: '',
-            periodoValid: ''
+            materiaSelecionadaValid: true,
+            periodo: 0,
+            periodoValid: true
         }
     },
     props: {
@@ -40,53 +42,79 @@ export default {
     },
     methods: {
         enviarFormulario() {
-            if(this.validarFormulario()) return
-
+            if (this.validarFormulario()) return;
 
             this.$emit('enviarFormulario', {
                 id_materia: this.materiaSelecionada,
                 periodo: this.periodo
-            })
-
+            });
         },
         validarFormulario() {
-            this.materiaSelecionadaValid = Validation.isRequired(this.materiaSelecionada) ? '' : 'Nome é obrigatorio'
-            this.periodoValid = Validation.isMoreThan(this.periodo, 1) ? 'Periodo tem que ser maior que zero' : ''
+            this.materiaSelecionadaValid = Validation.isRequired(this.materiaSelecionada);
+            this.periodoValid = !Validation.isMoreThan(this.periodo, 0);
 
-            return this.materiaSelecionadaValid !== '' || this.periodoValid !== ''
-        },
-        permitirApenasNumeros(event) {
-            const valor = event.target.value;
-            const valorApenasNumeros = valor.replace(/\D/g, '');
-            this.periodo = valorApenasNumeros;
+            return !this.materiaSelecionadaValid || !this.periodoValid;
         },
         limparCampos() {
-            this.materiaSelecionada = ''
-            this.materiaSelecionadaValid = ''
-            this.periodo = ''
-            this.periodoValid = ''
+            this.materiaSelecionada = '';
+            this.materiaSelecionadaValid = true;
+            this.periodo = '';
+            this.periodoValid = true;
         }
     },
     watch: {
         sucesso(newVal) {
-            if(newVal) this.limparCampos()
+            if (newVal) this.limparCampos();
         }
     }
 }
-
 </script>
 
+
 <style scoped>
+.modal-form {
+    max-width: 400px;
+    padding: 20px;
+  }
 
-form {
-    display: flex;
-    flex-direction: column;
+.modal-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.form-group select,
+.form-group input {
+    width: 100%;
     padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
-input,
-select {
-    width: 250px;
+.error-message {
+    color: red;
+    font-size: 0.875rem;
 }
 
+.btn-submit {
+    background-color: #007bff;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: #0056b3;
+}
 </style>
