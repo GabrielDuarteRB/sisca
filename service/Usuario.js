@@ -6,9 +6,29 @@ class Usuario {
         this.baseURL = 'usuarios'
     }
 
+    async fazerLogin(data) {
+        try {
+            const usuarios = await useHttp.post(`${this.baseURL}/login`, data)
+
+            return usuarios.data
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     async listarUsuarios() {
         try {
             const usuarios = await useHttp.get(`${this.baseURL}/listarTodos`)
+
+            return usuarios.data
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    async listarUsuario(id) {
+        try {
+            const usuarios = await useHttp.get(`${this.baseURL}/${id}`)
 
             return usuarios.data
         } catch (e) {

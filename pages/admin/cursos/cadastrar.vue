@@ -1,13 +1,16 @@
 <template>
-    <section>
-        <NuxtLink to="/admin/cursos"> <- Voltar para os cursos</NuxtLink>
+    <ValidadoresTecnico>
+        <NuxtLink class="menu" to="/admin/cursos">
+            <img src="../../../assets/icons/voltar.png" alt="Icone de voltar">
+        </NuxtLink>
 
         <formCriarCursos 
             @enviarFormulario="enviarFormulario" 
             :sucesso="sucesso" 
             :mensagem="mensagem"
+            class="form"
         />
-    </section>
+    </ValidadoresTecnico>
 </template>
 
 <script>
@@ -42,3 +45,11 @@ export default {
 }
 
 </script>
+
+<style>
+
+.form {
+    margin-top: 48px;
+}
+
+</style>

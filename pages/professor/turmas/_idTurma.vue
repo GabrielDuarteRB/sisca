@@ -1,50 +1,39 @@
 <template>
-    <div>
-        <NuxtLink to="/professor/turmas">Voltar para as turmas</NuxtLink>
+    <ValidadoresProfessor>
+        <NuxtLink class="menu" to="/professor/turmas">
+            <img src="../../../assets/icons/voltar.png" alt="Icone de voltar">
+        </NuxtLink>
 
-        <ListaProfessorTurmasAluno :alunos="alunos" />
-    </div>
+        <ListaProfessorTurmasAluno class="lista" :alunos="alunos" @pegarAlunos="buscarAlunosNaTurma" />
+    </ValidadoresProfessor>
 </template>
 
 <script>
 
+import TurmaAluno from '@/service/TurmaAluno.js'
+import Funcionario from '@/service/Funcionario.js'
+import LocalStorage from '@/utils/LocalStorage.js'
+
 export default {
     data() {
-        return  {
-            alunos: [
-                {
-                    nome: "gabriel",
-                    cpf: "1507472707",
-                    matricula: "11111111111111111",
-                    frequencia: "2",
-                    p1: null,
-                    p2: "10",
-                },
-                {
-                    nome: "gabriel",
-                    cpf: "1507472707",
-                    matricula: "11111111111111111",
-                    frequencia: "2",
-                    p1: "2",
-                    p2: "10",
-                },
-                {
-                    nome: "gabriel",
-                    cpf: "1507472707",
-                    matricula: "11111111111111111",
-                    frequencia: "2",
-                    p1: "2",
-                    p2: "10",
-                },
-                {
-                    nome: "gabriel",
-                    cpf: "1507472707",
-                    matricula: "11111111111111111",
-                    frequencia: "2",
-                    p1: "2",
-                    p2: "10",
-                },
-            ]
+        return {
+            alunos: [],
+            professor: []
+        }
+    },
+    async mounted() {
+        const id = LocalStorage.pegarIdUsuario()
+        if(!id) {
+            this.$router.replace({ path: '/' })
+        }
+
+        await this.buscarAlunosNaTurma()
+    },
+    methods: {
+        async buscarAlunosNaTurma() {
+            const id = this.$route.params.idTurma
+            this.alunos = await TurmaAluno.listarAlunosPorTurma(id)
+            console.log(this.alunos)
         }
     }
 }

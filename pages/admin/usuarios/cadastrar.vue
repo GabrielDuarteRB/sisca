@@ -1,7 +1,9 @@
 <template>
-    <section>
+    <ValidadoresTecnico>
         
-        <NuxtLink to="/admin/usuarios"> <- Voltar para os usuarios</NuxtLink>
+        <NuxtLink class="menu" to="/admin/usuarios">
+            <img src="../../../assets/icons/voltar.png" alt="Icone de voltar">
+        </NuxtLink>
 
         <h1>Cadastrar usuario</h1>
         
@@ -9,7 +11,7 @@
             @formularioEnviado="criarUsuario"
             :mensageToSend="usuarioCriado"
         />
-    </section>
+    </ValidadoresTecnico>
 </template>
 
 <script>
@@ -48,5 +50,10 @@ export default {
 
 </script>
 
+<style>
 
+h1 {
+    text-align: center;
+}
 
+</style>

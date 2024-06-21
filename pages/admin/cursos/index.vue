@@ -1,16 +1,15 @@
 <template>
-    <section>
-        <NuxtLink to="/admin/">Voltar para home</NuxtLink>
-        <br>
-        <NuxtLink to="/admin/cursos/cadastrar">Cadastrar um novo curso</NuxtLink>
+    <ValidadoresTecnico>
+        <div class="header-container">
+            <NuxtLink to="/admin" class="back-link">← Voltar para o painel principal</NuxtLink>
+            <NuxtLink to="/admin/cursos/cadastrar" class="add-student-link">Cadastrar um novo curso</NuxtLink>
+        </div>
+
         <listaCurso 
-            v-for="curso in cursos" 
-            :key="curso.id_curso"
-            :id_curso="curso.id_curso"
-            :nome="curso.nome"
-            :periodos="curso.periodos"
+            :cursos="cursos"
+            @pegarCursos="pegarCursos"
         />
-    </section>
+    </ValidadoresTecnico>
 </template>
 
 <script>
@@ -34,3 +33,31 @@ export default {
 }
 
 </script>
+
+<style>
+
+.header-container {
+    align-items: center;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.back-link,
+.add-student-link {
+    color: #007bff;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.back-link:hover,
+.add-student-link:hover {
+    text-decoration: underline;
+}
+
+</style>

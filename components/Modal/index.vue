@@ -1,7 +1,6 @@
 <template>
     <div class="modal-background"  @click="fecharModal">
         <div class="modal" @click.stop>
-            <span class="fechar" @click="fecharModal">X</span>
             <slot />
         </div>
     </div>
@@ -30,7 +29,7 @@ export default {
         margin: 0;
         padding: 0;
         overflow: hidden;
-        position: absolute;
+        position: fixed;
         top: 0;
         width: 100vw;
         z-index: 1; 
@@ -55,14 +54,5 @@ export default {
         width: 500px;
         z-index: 2;
     }
-
-    .fechar {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        cursor: pointer;
-    }
-
-
 
 </style>

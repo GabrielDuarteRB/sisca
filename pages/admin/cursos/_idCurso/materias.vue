@@ -1,14 +1,9 @@
 <template>
-    <section>
-        <NuxtLink to="/admin/cursos">Voltar para a tela de cursos</NuxtLink>
-        </br>
-        </br>
-        <span 
-            class="cadastrarMateria"
-            @click="modalAdicionarMateriaAberto = true"
-        >
-            Clique aqui para cadastrar nova materia
-        </span>
+    <ValidadoresTecnico>
+        <div class="header-container">
+            <NuxtLink to="/admin/cursos" class="back-link">← Voltar para a tela de cursos</NuxtLink>
+            <span @click="modalAdicionarMateriaAberto = true"  to="/admin/cursos/cadastrar" class="add-student-link">Cadastrar nova materia</span>
+        </div>
         <div v-if="curso">
             <h1>{{curso.nome}}</h1>
 
@@ -30,7 +25,7 @@
             :id_curso=curso.id_curso
         />
         
-    </section>
+    </ValidadoresTecnico>
 </template>
 
 <script>
@@ -82,6 +77,10 @@ export default {
 </script>
 
 <style>
+
+h1, h3 {
+    text-align: center;
+}
 
 .cadastrarMateria {
     cursor: pointer;

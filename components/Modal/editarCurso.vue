@@ -11,6 +11,8 @@
 
 <script>
 
+import Cursos from '@/service/Cursos.js'
+
 export default {
   data() {
     return {
@@ -19,7 +21,8 @@ export default {
   },
   props: {
     nome: String,
-    periodos: Number
+    periodos: Number,
+    id_curso: Number
   },
   methods: {
     fecharModal(mudanca = false) {
@@ -29,12 +32,17 @@ export default {
     },
 
     async atualizarCurso(e) {
-        this.mensagem = 'Curso atualizado com sucesso'
-        console.log(e)
+        e.id_curso = this.id_curso;
 
-        setTimeout(() => {
-            this.fecharModal()
-        }, 2500);
+        await Cursos.atualizarCurso(e).then(() => {
+          this.mensagem = 'Curso atualizado com sucesso'
+          this.$emit("pegarCursos")
+
+          setTimeout(() => {
+              this.fecharModal()
+          }, 2500);
+
+        })
     },
   },
 };
