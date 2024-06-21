@@ -1,33 +1,30 @@
 <template>
-    <form @submit.prevent="enviarFormulario">
+    <form @submit.prevent="enviarFormulario" class="form-container">
 
-        <div>
-            <label for="">titulo</label>
-            <input type="text" v-model="titulo">
+        <div class="form-group">
+            <label for="titulo">Título</label>
+            <input type="text" id="titulo" v-model="titulo" class="form-control">
+            <span v-if="!tituloValid" class="error-message">Adicione um título válido</span>
         </div>
-        <span v-if="!tituloValid">Adicione um titulo valido</span>
 
-        <div>
-            <label for="">autor</label>
-            <input type="text" v-model="autor">
+        <div class="form-group">
+            <label for="autor">Autor</label>
+            <input type="text" id="autor" v-model="autor" class="form-control">
+            <span v-if="!autorValid" class="error-message">Adicione um autor válido</span>
         </div>
-        <span v-if="!autorValid">Adicione um autor valido</span>
 
-        <div>
-            <label for="">editor</label>
-            <input type="text" v-model="editor">
+        <div class="form-group">
+            <label for="editor">Editor</label>
+            <input type="text" id="editor" v-model="editor" class="form-control">
+            <span v-if="!editorValid" class="error-message">Adicione um editor válido</span>
         </div>
-        <span v-if="!editorValid">Adicione um editor valido</span>
 
-
-        <button>Enviar</button>
+        <button type="submit" class="btn-submit">Enviar</button>
     </form>
 </template>
 
 <script>
-
 import Validation from '@/utils/Validation'
-
 
 export default {
     data() {
@@ -41,37 +38,80 @@ export default {
         }
     },
     props: {
-        tituloProps: String,
-        autorProps: String,
-        editorProps: String
+        livroProps: Object
     },
     mounted() {
-        this.titulo = this.tituloProps
-        this.autor = this.autorProps
-        this.editor = this.editorProps
+        if (this.livroProps) {
+            this.titulo = this.livroProps.titulo || "";
+            this.autor = this.livroProps.autor || "";
+            this.editor = this.livroProps.editor || "";
+        }
     },
     methods: {
         enviarFormulario() {
-            
-            console.log('texteee')
-            if(this.validar()) return
-            console.log('text')
+            if (this.validar()) return;
 
             this.$emit("enviarFormulario", {
                 titulo: this.titulo,
-                autor:  this.autor,
+                autor: this.autor,
                 editor: this.editor
-            })
+            });
         },
         validar() {
-            this.tituloValid = Validation.isRequired(this.titulo)
-            this.autorValid = Validation.isRequired(this.autor)
-            this.editorValid = Validation.isRequired(this.editor)
-            
-            return !this.tituloValid ||  !this.autorValid || !this.editorValid
+            this.tituloValid = Validation.isRequired(this.titulo);
+            this.autorValid = Validation.isRequired(this.autor);
+            this.editorValid = Validation.isRequired(this.editor);
 
+            return !this.tituloValid || !this.autorValid || !this.editorValid;
         }
     }
 }
-
 </script>
+
+<style scoped>
+.form-container {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.label {
+    margin-bottom: 5px;
+    display: block;
+    font-weight: bold;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+}
+
+.btn-submit {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-submit:hover {
+    background-color: #0056b3;
+}
+</style>
