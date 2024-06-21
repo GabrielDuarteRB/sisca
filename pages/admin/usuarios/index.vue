@@ -52,28 +52,8 @@ export default {
 </script>
 
 <style scoped>
-.header-container {
-    align-items: center;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    padding: 10px;
-}
 
-.back-link,
-.add-user-link {
-  color: #007bff;
-  font-weight: bold;
-  text-decoration: none;
-}
 
-.back-link:hover,
-.add-user-link:hover {
-  text-decoration: underline;
-}
 
 .message-container {
   text-align: center;

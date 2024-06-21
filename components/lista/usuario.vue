@@ -121,7 +121,7 @@ methods: {
   }
 
   .edit-button {
-    background-color: #007bff;
+    background-color: #7E9181;
     color: #fff;
     padding: 8px 12px;
     border: none;
@@ -130,6 +130,6 @@ methods: {
   }
 
   .edit-button:hover {
-    background-color: #0056b3;
+    background-color: #7E9181;
   }
 </style>

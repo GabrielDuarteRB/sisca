@@ -110,21 +110,10 @@
     margin: 5px 0;
   }
   
-  .edit-button {
-    background-color: #007bff;
-    color: #fff;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .edit-button:hover {
-    background-color: #0056b3;
-  }
+
   
   .materias-link {
-    color: #007bff;
+    color: #7E9181;
     text-decoration: none;
     padding: 8px 12px;
     border-radius: 4px;
