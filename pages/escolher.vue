@@ -3,6 +3,11 @@
         <div v-if="usuario" class="container-escolha">
             <h1>Escolha em qual classe voce gostaria de entrar</h1>
             <div>
+                <a @click="loggout">
+                    <img class="icone" src="../assets/icons/sair.png" alt="Icone sair">
+                    SAIR
+                </a>
+
                 <NuxtLink to="/admin" v-if="tipoRole('TECNICO')">
                     <img class="icone" src="../assets/icons/administrativo.png" alt="Icone do tecnico">
                     TECNICO ADMINISTRATIVO
@@ -16,6 +21,16 @@
                 <NuxtLink to="/professor" v-if="tipoRole('PROFESSOR')">
                     <img class="icone" src="../assets/icons/professor.png" alt="Icone do professor">
                     PROFESSOR
+                </NuxtLink>
+
+                <NuxtLink to="/almoxarifado" v-if="tipoRole('ALMOXARIFE')">
+                    <img class="icone" src="../assets/icons/almoxarifado.png" alt="Icone do professor">
+                    ALMOXARIFE
+                </NuxtLink>
+
+                <NuxtLink to="/bibliotecario" v-if="tipoRole('BIBLIOTECARIO')">
+                    <img class="icone" src="../assets/icons/livro.png" alt="Icone do professor">
+                    BIBLIOTECARIO
                 </NuxtLink>
             </div>
         </div>
@@ -48,6 +63,10 @@ export default {
         },
         tipoRole(tipo) {
             return this.usuario?.role?.includes(tipo)
+        },
+        loggout() {
+            LocalStorage.removerIdUsuario()
+            this.$router.replace({ path: '/' })
         }
     }
 }
@@ -73,6 +92,7 @@ a {
     border: 2px solid #008000;
     border-radius: 24px;
     color: black;
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     font-size: 16px;
